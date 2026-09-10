@@ -5,4 +5,5 @@ import 'package:project_flca2/src/features/forms/ui/form_page.dart';
 
 final router = GoRouter(routes: [
   GoRoute(path: "/", builder: (context, state) => FormPage()),
+  GoRoute(path: "/movies", builder: (context, state) => FormPage()),
 ]);

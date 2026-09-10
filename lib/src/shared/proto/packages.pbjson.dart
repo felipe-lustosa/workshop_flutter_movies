@@ -15,17 +15,63 @@ import 'dart:convert' as $convert;
 import 'dart:core' as $core;
 import 'dart:typed_data' as $typed_data;
 
-@$core.Deprecated('Use engineDescriptor instead')
-const Engine$json = {
-  '1': 'Engine',
+@$core.Deprecated('Use userDescriptor instead')
+const User$json = {
+  '1': 'User',
   '2': [
-    {'1': 'gear', '3': 1, '4': 2, '5': 5, '10': 'gear'},
-    {'1': 'velocity', '3': 2, '4': 2, '5': 9, '10': 'velocity'},
-    {'1': 'on', '3': 3, '4': 1, '5': 8, '10': 'on'},
+    {'1': 'id', '3': 1, '4': 2, '5': 5, '10': 'id'},
+    {'1': 'username', '3': 2, '4': 2, '5': 9, '10': 'username'},
+    {'1': 'password', '3': 3, '4': 2, '5': 9, '10': 'password'},
   ],
 };
 
-/// Descriptor for `Engine`. Decode as a `google.protobuf.DescriptorProto`.
-final $typed_data.Uint8List engineDescriptor = $convert.base64Decode(
-    'CgZFbmdpbmUSEgoEZ2VhchgBIAIoBVIEZ2VhchIaCgh2ZWxvY2l0eRgCIAIoCVIIdmVsb2NpdH'
-    'kSDgoCb24YAyABKAhSAm9u');
+/// Descriptor for `User`. Decode as a `google.protobuf.DescriptorProto`.
+final $typed_data.Uint8List userDescriptor = $convert.base64Decode(
+    'CgRVc2VyEg4KAmlkGAEgAigFUgJpZBIaCgh1c2VybmFtZRgCIAIoCVIIdXNlcm5hbWUSGgoIcG'
+    'Fzc3dvcmQYAyACKAlSCHBhc3N3b3Jk');
+
+@$core.Deprecated('Use movieDescriptor instead')
+const Movie$json = {
+  '1': 'Movie',
+  '2': [
+    {'1': 'id', '3': 1, '4': 2, '5': 5, '10': 'id'},
+    {'1': 'title', '3': 2, '4': 2, '5': 9, '10': 'title'},
+    {'1': 'cover', '3': 3, '4': 2, '5': 12, '10': 'cover'},
+    {'1': 'value', '3': 4, '4': 2, '5': 2, '10': 'value'},
+    {'1': 'year', '3': 5, '4': 2, '5': 9, '10': 'year'},
+    {'1': 'director', '3': 6, '4': 2, '5': 9, '10': 'director'},
+    {'1': 'sinopse', '3': 7, '4': 2, '5': 9, '10': 'sinopse'},
+  ],
+};
+
+/// Descriptor for `Movie`. Decode as a `google.protobuf.DescriptorProto`.
+final $typed_data.Uint8List movieDescriptor = $convert.base64Decode(
+    'CgVNb3ZpZRIOCgJpZBgBIAIoBVICaWQSFAoFdGl0bGUYAiACKAlSBXRpdGxlEhQKBWNvdmVyGA'
+    'MgAigMUgVjb3ZlchIUCgV2YWx1ZRgEIAIoAlIFdmFsdWUSEgoEeWVhchgFIAIoCVIEeWVhchIa'
+    'CghkaXJlY3RvchgGIAIoCVIIZGlyZWN0b3ISGAoHc2lub3BzZRgHIAIoCVIHc2lub3BzZQ==');
+
+@$core.Deprecated('Use moviesDescriptor instead')
+const Movies$json = {
+  '1': 'Movies',
+  '2': [
+    {'1': 'movies', '3': 1, '4': 3, '5': 11, '6': '.Movie', '10': 'movies'},
+  ],
+};
+
+/// Descriptor for `Movies`. Decode as a `google.protobuf.DescriptorProto`.
+final $typed_data.Uint8List moviesDescriptor = $convert
+    .base64Decode('CgZNb3ZpZXMSHgoGbW92aWVzGAEgAygLMgYuTW92aWVSBm1vdmllcw==');
+
+@$core.Deprecated('Use rentalDescriptor instead')
+const Rental$json = {
+  '1': 'Rental',
+  '2': [
+    {'1': 'user_id', '3': 1, '4': 2, '5': 5, '10': 'userId'},
+    {'1': 'movie_id', '3': 2, '4': 2, '5': 5, '10': 'movieId'},
+  ],
+};
+
+/// Descriptor for `Rental`. Decode as a `google.protobuf.DescriptorProto`.
+final $typed_data.Uint8List rentalDescriptor = $convert.base64Decode(
+    'CgZSZW50YWwSFwoHdXNlcl9pZBgBIAIoBVIGdXNlcklkEhkKCG1vdmllX2lkGAIgAigFUgdtb3'
+    'ZpZUlk');
