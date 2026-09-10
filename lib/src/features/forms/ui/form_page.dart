@@ -2,7 +2,6 @@ import 'package:flutter/material.dart';
 import 'package:project_flca2/src/core/di/injection.dart';
 import 'package:project_flca2/src/features/forms/controller/form_controller.dart';
 import 'package:project_flca2/src/features/forms/ui/widgets/custom_info_field.dart';
-import 'package:project_flca2/src/features/forms/ui/widgets/custom_text_field.dart';
 import 'package:signals/signals_flutter.dart';
 
 class FormPage extends StatefulWidget {
@@ -27,7 +26,7 @@ class _FormPageState extends State<FormPage> {
 
   @override
   Widget build(BuildContext context) {
-    _formController.showInformations();
+    // _formController.showInformations();
     return Scaffold(
       appBar: AppBar(
         backgroundColor: Colors.pinkAccent,
@@ -54,23 +53,23 @@ class _FormPageState extends State<FormPage> {
                     return Text(_formController.error, style: TextStyle(color: Colors.red));
                   }
                 ),
-                CustomTextField(label: "Name", controller: _nameController),
-                CustomTextField(label: "Email", controller: _emailController),
-                CustomTextField(label: "Address", controller: _addressController),
+                // CustomTextField(label: "Name", controller: _nameController),
+                // CustomTextField(label: "Email", controller: _emailController),
+                // CustomTextField(label: "Address", controller: _addressController),
                 Row(
                   mainAxisAlignment: MainAxisAlignment.center,
                   spacing: 16,
                   children: [
                     OutlinedButton(onPressed: () => {
                       resetControllers(),
-                      _formController.clearInformations()
+                      // _formController.clearInformations()
                     }, child: Text("Cancel")),
                     ElevatedButton(onPressed: () => {
-                      _formController.updateInformations(
-                        _nameController.text,
-                        _emailController.text,
-                        _addressController.text,
-                      ),
+                      // _formController.updateInformations(
+                      //   _nameController.text,
+                      //   _emailController.text,
+                      //   _addressController.text,
+                      // ),
                       resetControllers()
                     }, child: Text("Confirm")),
                   ],

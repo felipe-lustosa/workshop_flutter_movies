@@ -16,7 +16,7 @@ class FormController {
   List <String> get itens => _itens.value;
 
   late final totalItens = computed(() => _itens.value.length);
-  final userRepository = UserRepository(UserDatasource()); 
+  // final userRepository = UserRepository(UserDatasource()); 
 
   void updateUserInformations(String name, String email, String address) {
     batch(() {
@@ -34,30 +34,30 @@ class FormController {
     }
   }
 
-  void showInformations() async {
-    await safeRun(() async {
-      final result = await userRepository.showInformations();
-      updateUserInformations(result.name, result.email, result.address);
-    });
-  }
+  // void showInformations() async {
+  //   await safeRun(() async {
+  //     final result = await userRepository.showInformations();
+  //     updateUserInformations(result.name, result.email, result.address);
+  //   });
+  // }
 
-  void updateInformations(String name, String email, String address) async {
-    await safeRun(() async {
-      final result = await userRepository.updateInformations(name, email, address);
+  // void updateInformations(String name, String email, String address) async {
+  //   await safeRun(() async {
+  //     final result = await userRepository.updateInformations(name, email, address);
 
-      if (result) {
-        updateUserInformations(name, email, address);
-      }
-    });
-  }
+  //     if (result) {
+  //       updateUserInformations(name, email, address);
+  //     }
+  //   });
+  // }
 
-  void clearInformations() async {
-    await safeRun(() async {
-      final result = await userRepository.updateInformations("", "", "");
+  // void clearInformations() async {
+  //   await safeRun(() async {
+  //     final result = await userRepository.updateInformations("", "", "");
 
-      if (result) {
-        updateUserInformations("", "", "");
-      }
-    });
-  }
+  //     if (result) {
+  //       updateUserInformations("", "", "");
+  //     }
+  //   });
+  // }
 }

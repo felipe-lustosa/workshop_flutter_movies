@@ -1,28 +1,25 @@
-import 'package:project_flca2/src/features/forms/data/datasources/user_datasource.dart';
-import 'package:project_flca2/src/features/forms/data/repositories/user_repository.dart';
+import 'package:project_flca2/src/features/login/data/datasources/login_datasource.dart';
+import 'package:project_flca2/src/features/login/data/repositories/login_repository.dart';
 import 'package:signals/signals.dart';
 
 class FormController {
-  final _name = signal<String>('');
-  final _email = signal<String>('');
-  final _address = signal<String>('');
+  final _username = signal<String>('');
+  final _password = signal<String>('');
   final _error = signal<String>('');
   final _itens = signal<List<String>>([]);
 
-  String get name => _name.value;
-  String get email => _email.value;
-  String get address => _address.value;
+  String get username => _username.value;
+  String get password => _password.value;
   String get error => _error.value;
   List <String> get itens => _itens.value;
 
   late final totalItens = computed(() => _itens.value.length);
-  final userRepository = UserRepository(UserDatasource()); 
+  final loginRepository = LoginRepository(LoginDatasource()); 
 
-  void updateUserInformations(String name, String email, String address) {
+  void updateUserInformations(String username, String password, String address) {
     batch(() {
-      _name.value = name;
-      _email.value = email;
-      _address.value = address;
+      _username.value = username;
+      _password.value = password;
     });
   }
 
@@ -34,29 +31,14 @@ class FormController {
     }
   }
 
-  void showInformations() async {
+  void login(String username, String password) async {
     await safeRun(() async {
-      final result = await userRepository.showInformations();
-      updateUserInformations(result.name, result.email, result.address);
-    });
-  }
-
-  void updateInformations(String name, String email, String address) async {
-    await safeRun(() async {
-      final result = await userRepository.updateInformations(name, email, address);
+      final result = await loginRepository.login(username, password);
 
       if (result) {
-        updateUserInformations(name, email, address);
-      }
-    });
-  }
-
-  void clearInformations() async {
-    await safeRun(() async {
-      final result = await userRepository.updateInformations("", "", "");
-
-      if (result) {
-        updateUserInformations("", "", "");
+        // ignore: avoid_print
+        print(result);
+        // updateUserInformations(username, password);
       }
     });
   }
