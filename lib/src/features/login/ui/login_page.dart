@@ -1,6 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:project_flca2/src/core/di/injection.dart';
-import 'package:project_flca2/src/features/forms/controller/form_controller.dart';
+import 'package:project_flca2/src/features/login/controller/login_controller.dart';
 import 'package:project_flca2/src/features/login/ui/widgets/custom_text_field.dart';
 
 class LoginPage extends StatefulWidget {
@@ -13,7 +13,7 @@ class LoginPage extends StatefulWidget {
 class _LoginPageState extends State<LoginPage> {
   final _usernameController = TextEditingController(text: '');
   final _passwordController = TextEditingController(text: '');
-  final _formController = getIt<FormController>();
+  final _loginController = getIt<LoginController>();
 
 
   void resetControllers() {
@@ -73,19 +73,19 @@ class _LoginPageState extends State<LoginPage> {
                               style: TextButton.styleFrom(
                                 foregroundColor: Colors.white,
                               ),
-                              // style: ButtonStyle(textStyle: WidgetStateMapper()),
                               child: Text("Esqueceu a senha?"),
                             ),
                           ],
                         ),
                         ElevatedButton(
                           onPressed: () => {
-                          // _formController.updateInformations(
+                          // _loginController.updateInformations(
                           //   _nameController.text,
                           //   _emailController.text,
                           //   _addressController.text,
                           // ),
-                          resetControllers()
+                          _loginController.login(_usernameController.text, _passwordController.text)
+                          // resetControllers()
                           }, 
                           style: ButtonStyle(  
                             padding: WidgetStateProperty.all(

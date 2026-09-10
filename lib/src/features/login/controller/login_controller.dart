@@ -1,27 +1,20 @@
+import 'package:project_flca2/src/core/router/router.dart';
 import 'package:project_flca2/src/features/login/data/datasources/login_datasource.dart';
 import 'package:project_flca2/src/features/login/data/repositories/login_repository.dart';
 import 'package:signals/signals.dart';
 
-class FormController {
+class LoginController {
   final _username = signal<String>('');
   final _password = signal<String>('');
+  final _userId = signal<int?>(null);
   final _error = signal<String>('');
-  final _itens = signal<List<String>>([]);
 
   String get username => _username.value;
   String get password => _password.value;
+  int? get userId => _userId.value;
   String get error => _error.value;
-  List <String> get itens => _itens.value;
 
-  late final totalItens = computed(() => _itens.value.length);
   final loginRepository = LoginRepository(LoginDatasource()); 
-
-  void updateUserInformations(String username, String password, String address) {
-    batch(() {
-      _username.value = username;
-      _password.value = password;
-    });
-  }
 
   Future<void> safeRun(Future<void> Function() action) async {
     try {
@@ -35,10 +28,10 @@ class FormController {
     await safeRun(() async {
       final result = await loginRepository.login(username, password);
 
-      if (result) {
-        // ignore: avoid_print
-        print(result);
-        // updateUserInformations(username, password);
+      print(result);
+      _userId.value = result.id;
+      if (userId is int) {
+        router.go("/movies");
       }
     });
   }
