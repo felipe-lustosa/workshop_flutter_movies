@@ -1,0 +1,7 @@
+syntax = "proto2";
+
+message Engine {
+    required int32 gear = 1;
+    required string velocity = 2;
+    optional bool on = 3;
+}
