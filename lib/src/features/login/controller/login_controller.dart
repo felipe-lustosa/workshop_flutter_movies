@@ -28,7 +28,6 @@ class LoginController {
     await safeRun(() async {
       final result = await loginRepository.login(username, password);
 
-      print(result);
       _userId.value = result.id;
       if (userId is int) {
         router.go("/movies");
