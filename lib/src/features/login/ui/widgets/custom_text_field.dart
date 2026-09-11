@@ -3,14 +3,16 @@ import 'package:flutter/material.dart';
 class CustomTextField extends StatelessWidget {
   final String label;
   final bool obscureText;
+  final Function onSubmit;
   final TextEditingController controller;
-  const new({super.key, required this.label, required this.obscureText, required this.controller});
+  const new({super.key, required this.label, required this.obscureText, required this.onSubmit, required this.controller});
 
   @override
   Widget build(BuildContext context) {
     return TextField(
       controller: controller, 
       obscureText: obscureText,
+      onSubmitted: (value) => onSubmit(),
       decoration: InputDecoration(
         labelStyle: TextStyle(color: Colors.white),
         border: OutlineInputBorder(borderRadius: BorderRadius.circular(8), borderSide: BorderSide(color: Colors.white)), 

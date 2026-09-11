@@ -24,6 +24,20 @@ class _LoginPageState extends State<LoginPage> {
 
   @override
   Widget build(BuildContext context) {
+    
+    void handleLogin() async {
+      await _loginController.login(_usernameController.text, _passwordController.text);
+
+      if (_loginController.error is String) {
+        showErrorAlert(
+          // ignore: use_build_context_synchronously
+          context, 
+          _loginController.error!, 
+          () => _loginController.cleanErrors(),
+        );
+      }
+    }
+
     return Scaffold(
       backgroundColor: Colors.black,
       appBar: AppBar(
@@ -60,8 +74,8 @@ class _LoginPageState extends State<LoginPage> {
                             Text("Entrar", style: TextStyle(color: Colors.white, fontSize: 32, fontWeight: FontWeight.w600), textAlign: TextAlign.left,),
                           ],
                         ),
-                        CustomTextField(label: "Username", obscureText: false, controller: _usernameController),
-                        CustomTextField(label: "Password", obscureText: true, controller: _passwordController),
+                        CustomTextField(label: "Username", obscureText: false, controller: _usernameController, onSubmit: handleLogin),
+                        CustomTextField(label: "Password", obscureText: true, controller: _passwordController, onSubmit: handleLogin),
                         Row(
                           mainAxisAlignment: MainAxisAlignment.end,
                           children: [
@@ -71,17 +85,7 @@ class _LoginPageState extends State<LoginPage> {
                           ],
                         ),
                         ElevatedButton(
-                          onPressed: () async {
-                            await _loginController.login(_usernameController.text, _passwordController.text);
-
-                            if (_loginController.error is String) {
-                              showErrorAlert(
-                                context, 
-                                _loginController.error!, 
-                                () => _loginController.cleanErrors(),
-                              );
-                            }
-                          },
+                          onPressed: () => handleLogin(),
                           child: const Text('Entrar'),
                         )
 

@@ -39,8 +39,12 @@ class MovieController {
 
   void showRentalMovies() async {
     await safeRun(() async {
-      final result = await movieRepository.showRentalInformations(loginController.userData!);
-      _rentalMoviesList.value = result.movies;
+      try {
+        final result = await movieRepository.showRentalInformations(loginController.userData!);
+        _rentalMoviesList.value = result.movies;
+      } catch(e) {
+        _rentalMoviesList.value = [];
+      }
     });
   }
 

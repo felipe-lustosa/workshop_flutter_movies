@@ -5,6 +5,7 @@ import 'package:project_flca2/src/core/di/injection.dart';
 import 'package:project_flca2/src/core/router/router.dart';
 import 'package:project_flca2/src/features/login/controller/login_controller.dart';
 import 'package:project_flca2/src/features/movies/controller/movie_controller.dart';
+import 'package:project_flca2/src/features/movies/ui/widgets/custom_snackbar.dart';
 
 class MovieDetailPage extends StatefulWidget {
   const MovieDetailPage({super.key}); 
@@ -97,9 +98,19 @@ class _MovieDetailPageState extends State<MovieDetailPage> {
                         ),
                         const SizedBox(width: 12),
                         ElevatedButton(
-                          onPressed: () => _movieController.isRental ? 
-                          _movieController.watchMovie(movie.id, _loginController.userData!.id) : 
-                          _movieController.rentalMovie(movie.id, _loginController.userData!.id),
+                          onPressed: () => {
+                            _movieController.isRental ? 
+                            _movieController.watchMovie(movie.id, _loginController.userData!.id) : 
+                            _movieController.rentalMovie(movie.id, _loginController.userData!.id),
+                            ScaffoldMessenger.of(context).showSnackBar(
+                              SnackBar(
+                                content: Text('Filme alugado com sucesso', style: TextStyle(color: Colors.green)),
+                                backgroundColor: Colors.transparent, // Adjust as needed
+                                elevation: 0,
+                                duration: const Duration(milliseconds: 2000),
+                              ),
+                            ),
+                          },
                           child: _movieController.isRental ? Text('Watch') : Text('Rental'),
                         ),
                       ],
