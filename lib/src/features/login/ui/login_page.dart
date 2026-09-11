@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:project_flca2/src/core/di/injection.dart';
 import 'package:project_flca2/src/features/login/controller/login_controller.dart';
+import 'package:project_flca2/src/features/login/ui/widgets/alert_modal.dart';
 import 'package:project_flca2/src/features/login/ui/widgets/custom_text_field.dart';
 
 class LoginPage extends StatefulWidget {
@@ -35,12 +36,7 @@ class _LoginPageState extends State<LoginPage> {
         children: [
           Opacity(
             opacity: 0.5,
-            child: Image(
-              image: AssetImage('assets/image.png'),
-              repeat: ImageRepeat.repeat,
-              width: double.maxFinite,
-              height: double.maxFinite,
-            ),
+            child: Image(image: AssetImage('assets/image.png'), repeat: ImageRepeat.repeat, width: double.maxFinite, height: double.maxFinite),
           ),
           Row(
             mainAxisAlignment: MainAxisAlignment.center,
@@ -51,8 +47,8 @@ class _LoginPageState extends State<LoginPage> {
                   Container(
                     width: 500,
                     decoration: BoxDecoration(
-                      color: Colors.blue, borderRadius: 
-                      BorderRadius.circular(8.0)
+                      color: Color.fromARGB(255, 106, 15, 172), 
+                      borderRadius: BorderRadius.circular(8.0)
                     ),
                     padding: EdgeInsets.all(32.0),
                     child: Column(
@@ -69,28 +65,26 @@ class _LoginPageState extends State<LoginPage> {
                         Row(
                           mainAxisAlignment: MainAxisAlignment.end,
                           children: [
-                            TextButton(
-                              onPressed: () => {
-                                resetControllers(),
-                              }, 
-                              style: TextButton.styleFrom(
-                                foregroundColor: Colors.white,
-                              ),
+                            TextButton(onPressed: () => {resetControllers(),}, style: TextButton.styleFrom(foregroundColor: Colors.white,),
                               child: Text("Esqueceu a senha?"),
                             ),
                           ],
                         ),
                         ElevatedButton(
-                          onPressed: () => {
-                          _loginController.login(_usernameController.text, _passwordController.text)
-                          }, 
-                          style: ButtonStyle(  
-                            padding: WidgetStateProperty.all(
-                              const EdgeInsets.only(left: 64, right: 64),
-                            ),
-                          ),
-                          child: Text("Entrar")
-                        ),
+                          onPressed: () async {
+                            await _loginController.login(_usernameController.text, _passwordController.text);
+
+                            if (_loginController.error is String) {
+                              showErrorAlert(
+                                context, 
+                                _loginController.error!, 
+                                () => _loginController.cleanErrors(),
+                              );
+                            }
+                          },
+                          child: const Text('Entrar'),
+                        )
+
                       ],
                     ),
                   )

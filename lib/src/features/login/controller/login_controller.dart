@@ -8,7 +8,7 @@ class LoginController {
   final _username = signal<String>('');
   final _password = signal<String>('');
   final _userData = signal<User?>(null);
-  final _error = signal<String?>('');
+  final _error = signal<String?>(null);
 
   String get username => _username.value;
   String get password => _password.value;
@@ -25,7 +25,7 @@ class LoginController {
     }
   }
 
-  void login(String username, String password) async {
+  Future<void> login(String username, String password) async {
     await safeRun(() async {
       final result = await loginRepository.login(username, password);
 
@@ -40,5 +40,9 @@ class LoginController {
     _error.value = null;
     _userData.value = null;
     router.go("/");
+  }
+
+  void cleanErrors() {
+    _error.value = null;
   }
 }

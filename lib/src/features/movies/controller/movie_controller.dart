@@ -65,18 +65,9 @@ class MovieController {
       final result = await movieRepository.watchMovie(movieId, userId);
 
       if (result) {
+        router.go("/movies");
         showRentalMovies();
       }
     });
   }
-
-  // void clearInformations() async {
-  //   await safeRun(() async {
-  //     final result = await userRepository.updateInformations("", "", "");
-
-  //     if (result) {
-  //       updateUserInformations("", "", "");
-  //     }
-  //   });
-  // }
 }
