@@ -39,4 +39,21 @@ class MoviesAdapter {
   }
 }
 
+class RentalAdapter {
+   // Método estático que decodifica uma mensagem protobuf do tipo Rental
+  static Rental decodeProto(Uint8List encodedRental){
+    try{
+      return Rental.fromBuffer(encodedRental);
+    }
+    catch(e){
+        // Lança uma exceção personalizada em caso de erro na decodificação
+      throw Exception('Erro ao decodificar o proto');
+    }
+  }
+
+  // Método estático que codifica uma instância de Rental em uma mensagem protobuf   
+  static Uint8List encodeProto(Rental rental){
+    return rental.writeToBuffer(); // Retorna o buffer de bytes codificado
+  }
+}
 

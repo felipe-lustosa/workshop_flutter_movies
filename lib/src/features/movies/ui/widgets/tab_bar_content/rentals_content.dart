@@ -1,5 +1,8 @@
 import 'package:flutter/material.dart';
-import 'package:project_flca2/src/features/movies/ui/movies_page.dart';
+import 'package:project_flca2/src/core/di/injection.dart';
+import 'package:project_flca2/src/features/movies/controller/movie_controller.dart';
+import 'package:project_flca2/src/features/movies/ui/widgets/grid_view.dart';
+import 'package:signals/signals_hooks.dart';
 
 class RentalsContent extends StatefulWidget {
   const RentalsContent({super.key}); 
@@ -9,20 +12,20 @@ class RentalsContent extends StatefulWidget {
 }
 
 class _RentalsContentState extends State<RentalsContent> {
-  final _nameController = TextEditingController(text: '');
-  final _emailController = TextEditingController(text: '');
-  final _addressController = TextEditingController(text: '');
-  // final _formController = getIt<FormController>();
-
-  void resetControllers() {
-    _nameController.clear();
-    _emailController.clear();
-    _addressController.clear();
-  }
+  final _movieController = getIt<MovieController>();
 
   @override
   Widget build(BuildContext context) {
-    // _formController.showInformations();
-    return Column();
+    _movieController.showRentalMovies();
+    return Expanded(
+      child: SignalBuilder(
+        builder: (context) => GridBuilder(
+          onTap: (movie) {
+            _movieController.selectMovie(movie, isRental: true);
+          },
+          movies: _movieController.rentalMoviesList,
+        ),
+      ),
+    );
   }
 }

@@ -34,12 +34,20 @@ class GridBuilderState extends State<GridBuilder> {
           onTap: () => widget.onTap?.call(movie),
           onLongPress: () => widget.onLongPress?.call(),
           child: GridTile(
-            child: Column(
-              mainAxisAlignment: MainAxisAlignment.center,
-              children: [
-                Image.memory(Uint8List.fromList(movie.cover), height: 120,),
-                Text('R\$ ${movie.value.toStringAsFixed(2)}', style: TextStyle(color: Colors.white, fontWeight: FontWeight(600)),)
-              ],
+            child: Container(
+              margin: EdgeInsets.all(4.0),
+              padding: EdgeInsets.all(4.0),
+              decoration: BoxDecoration(
+                border: Border.all(color: Colors.white),
+                borderRadius: BorderRadius.circular(10)
+              ),
+              child: Column(
+                mainAxisAlignment: MainAxisAlignment.center,
+                children: [
+                  Image.memory(Uint8List.fromList(movie.cover), height: 120),
+                  Text('R\$ ${movie.value.toStringAsFixed(2)}', style: TextStyle(color: Colors.white, fontWeight: FontWeight(600)),)
+                ],
+              ),
             ),
           ),
         );

@@ -1,4 +1,6 @@
+import 'package:project_flca2/src/core/di/injection.dart';
 import 'package:project_flca2/src/core/router/router.dart';
+import 'package:project_flca2/src/features/login/controller/login_controller.dart';
 import 'package:project_flca2/src/features/movies/data/datasources/movie_datasource.dart';
 import 'package:project_flca2/src/features/movies/data/repositories/movie_repository.dart';
 import 'package:project_flca2/src/shared/proto/packages.pb.dart';
@@ -6,13 +8,19 @@ import 'package:signals/signals.dart';
 
 class MovieController {
   final _moviesList = signal<List<Movie>>([]);
+  final _rentalMoviesList = signal<List<Movie>>([]);
   final _selectedMovie = signal<Movie?>(null);
+  final _isRental = signal<bool>(false);
   final _error = signal<String>('');
 
   List<Movie> get moviesList => _moviesList.value;
+  List<Movie> get rentalMoviesList => _rentalMoviesList.value;
   Movie? get selectedMovie=> _selectedMovie.value;
+  bool get isRental=> _isRental.value;
   String get error => _error.value;
+
   final movieRepository = MovieRepository(MovieDatasource()); 
+  final loginController = getIt<LoginController>();
 
   Future<void> safeRun(Future<void> Function() action) async {
     try {
@@ -29,20 +37,38 @@ class MovieController {
     });
   }
 
-  void selectMovie(Movie movie) {
+  void showRentalMovies() async {
+    await safeRun(() async {
+      final result = await movieRepository.showRentalInformations(loginController.userData!);
+      _rentalMoviesList.value = result.movies;
+    });
+  }
+
+  void selectMovie(Movie movie, {bool isRental = false}) {
     _selectedMovie.value = movie;
+    _isRental.value = isRental;
     router.go("/movie-details");
   }
 
-  // void updateInformations(String moviesList, String email, String address) async {
-  //   await safeRun(() async {
-  //     final result = await userRepository.updateInformations(moviesList, email, address);
+  void rentalMovie(int movieId, int userId) async {
+    await safeRun(() async {
+      final result = await movieRepository.rentalMovie(movieId, userId);
 
-  //     if (result) {
-  //       updateUserInformations(moviesList, email, address);
-  //     }
-  //   });
-  // }
+      if (result) {
+        router.go("/movies");
+      }
+    });
+  }
+
+  void watchMovie(int movieId, int userId) async {
+    await safeRun(() async {
+      final result = await movieRepository.watchMovie(movieId, userId);
+
+      if (result) {
+        showRentalMovies();
+      }
+    });
+  }
 
   // void clearInformations() async {
   //   await safeRun(() async {

@@ -1,18 +1,19 @@
 import 'package:project_flca2/src/core/router/router.dart';
 import 'package:project_flca2/src/features/login/data/datasources/login_datasource.dart';
 import 'package:project_flca2/src/features/login/data/repositories/login_repository.dart';
+import 'package:project_flca2/src/shared/proto/packages.pb.dart';
 import 'package:signals/signals.dart';
 
 class LoginController {
   final _username = signal<String>('');
   final _password = signal<String>('');
-  final _userId = signal<int?>(null);
-  final _error = signal<String>('');
+  final _userData = signal<User?>(null);
+  final _error = signal<String?>('');
 
   String get username => _username.value;
   String get password => _password.value;
-  int? get userId => _userId.value;
-  String get error => _error.value;
+  User? get userData => _userData.value;
+  String? get error => _error.value;
 
   final loginRepository = LoginRepository(LoginDatasource()); 
 
@@ -28,10 +29,16 @@ class LoginController {
     await safeRun(() async {
       final result = await loginRepository.login(username, password);
 
-      _userId.value = result.id;
-      if (userId is int) {
+      _userData.value = result;
+      if (userData != null) {
         router.go("/movies");
       }
     });
+  }
+
+  void logout()  {
+    _error.value = null;
+    _userData.value = null;
+    router.go("/");
   }
 }

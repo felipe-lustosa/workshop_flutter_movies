@@ -50,7 +50,10 @@ class _LoginPageState extends State<LoginPage> {
                 children: [
                   Container(
                     width: 500,
-                    decoration: BoxDecoration(color: Colors.blue, borderRadius: BorderRadius.circular(8.0)),
+                    decoration: BoxDecoration(
+                      color: Colors.blue, borderRadius: 
+                      BorderRadius.circular(8.0)
+                    ),
                     padding: EdgeInsets.all(32.0),
                     child: Column(
                       spacing: 32,
@@ -61,8 +64,8 @@ class _LoginPageState extends State<LoginPage> {
                             Text("Entrar", style: TextStyle(color: Colors.white, fontSize: 32, fontWeight: FontWeight.w600), textAlign: TextAlign.left,),
                           ],
                         ),
-                        CustomTextField(label: "Username", controller: _usernameController),
-                        CustomTextField(label: "Password", controller: _passwordController),
+                        CustomTextField(label: "Username", obscureText: false, controller: _usernameController),
+                        CustomTextField(label: "Password", obscureText: true, controller: _passwordController),
                         Row(
                           mainAxisAlignment: MainAxisAlignment.end,
                           children: [
@@ -79,13 +82,7 @@ class _LoginPageState extends State<LoginPage> {
                         ),
                         ElevatedButton(
                           onPressed: () => {
-                          // _loginController.updateInformations(
-                          //   _nameController.text,
-                          //   _emailController.text,
-                          //   _addressController.text,
-                          // ),
                           _loginController.login(_usernameController.text, _passwordController.text)
-                          // resetControllers()
                           }, 
                           style: ButtonStyle(  
                             padding: WidgetStateProperty.all(

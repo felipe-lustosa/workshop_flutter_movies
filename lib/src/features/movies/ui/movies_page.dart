@@ -1,10 +1,12 @@
 import 'package:flutter/material.dart';
-import 'package:project_flca2/src/core/router/router.dart';
+import 'package:project_flca2/src/core/di/injection.dart';
+import 'package:project_flca2/src/features/login/controller/login_controller.dart';
 import 'package:project_flca2/src/features/movies/ui/widgets/tab_bar_content/movies_content.dart';
 import 'package:project_flca2/src/features/movies/ui/widgets/tab_bar_content/rentals_content.dart';
 
 class MoviesPage extends StatelessWidget {
-  const MoviesPage({super.key});
+  MoviesPage({super.key});
+  final _loginController = getIt<LoginController>();
 
   @override
   Widget build(BuildContext context) {
@@ -12,9 +14,9 @@ class MoviesPage extends StatelessWidget {
       initialIndex: 0,
       length: 2,
       child: Scaffold(
-        backgroundColor: Colors.blue,
-        appBar: AppBar(
-          backgroundColor: Colors.blue,
+      backgroundColor: const Color.fromARGB(255, 44, 11, 63),
+      appBar: AppBar(
+        backgroundColor: const Color.fromARGB(255, 106, 15, 172),
           title:
             Row(
               spacing: 10,
@@ -30,13 +32,13 @@ class MoviesPage extends StatelessWidget {
                         onPressed: () => {},
                       ),
                     ),
-                    Text("Joao", style: TextStyle(color: Colors.white),),
+                    Text(_loginController.userData!.username, style: TextStyle(color: Colors.white),),
                   ],
                 ),
                 IconButton(
                   icon: Icon(Icons.exit_to_app),
                   color: Colors.white,
-                  onPressed: () => router.go("/"),
+                  onPressed: () => _loginController.logout(),
                 ),
               ],
             ),
@@ -45,7 +47,6 @@ class MoviesPage extends StatelessWidget {
             indicatorColor: Colors.white,
             unselectedLabelColor: Colors.white,
             tabs: <Widget>[
-              // Tab(icon: Icon(Icons.grid_4x4), text: "GridView"),
               Tab(text: "Available Movies"),
               Tab(text: "Movies Rental"),
             ],

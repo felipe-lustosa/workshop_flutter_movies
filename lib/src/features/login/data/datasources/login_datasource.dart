@@ -6,7 +6,6 @@ import 'package:project_flca2/src/core/networks/server_address.dart';
 class LoginDatasource {
   final client = http.Client();
 
-  // Método para recuperar o estado do motor na api
   Future<(Uint8List?, String?)> login(Uint8List userBytes) async {
     try {
       var uri = Uri.parse(loginRoute);

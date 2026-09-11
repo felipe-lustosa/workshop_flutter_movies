@@ -12,32 +12,18 @@ class MoviesContent extends StatefulWidget {
 }
 
 class _MoviesContentState extends State<MoviesContent> {
-  final _nameController = TextEditingController(text: '');
-  final _emailController = TextEditingController(text: '');
-  final _addressController = TextEditingController(text: '');
   final _movieController = getIt<MovieController>();
-
-  void resetControllers() {
-    _nameController.clear();
-    _emailController.clear();
-    _addressController.clear();
-  }
 
   @override
   Widget build(BuildContext context) {
     _movieController.showMovies();
     return Expanded(
-      child: Container(
-        // decoration: BoxDecoration(
-        //     border: Border.all(),
-        //     borderRadius: BorderRadius.circular(10)),
-        child: SignalBuilder(
-          builder: (context) => GridBuilder(
-            onTap: (movie) {
-              _movieController.selectMovie(movie);
-            },
-            movies: _movieController.moviesList,
-          ),
+      child: SignalBuilder(
+        builder: (context) => GridBuilder(
+          onTap: (movie) {
+            _movieController.selectMovie(movie, isRental: false);
+          },
+          movies: _movieController.moviesList,
         ),
       ),
     );
