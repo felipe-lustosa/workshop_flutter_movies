@@ -33,10 +33,8 @@ class _MoviesContentState extends State<MoviesContent> {
         //     borderRadius: BorderRadius.circular(10)),
         child: SignalBuilder(
           builder: (context) => GridBuilder(
-            onTap: (user) {
-              // _controllerUser.text = user.name;
-              // _controllerEmail.text = user.email;
-              // _controllerAdress.text = user.adress;
+            onTap: (movie) {
+              _movieController.selectMovie(movie);
             },
             movies: _movieController.moviesList,
           ),

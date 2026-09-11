@@ -23,11 +23,12 @@ class MoviesPage extends StatelessWidget {
                 Row(
                   spacing: 10,
                   children: [
-                    IconButton(
-                      // style: ButtonStyle(backgroundColor: Colors.grey),
-                      color: Colors.white,
-                      icon: Icon(Icons.person),
-                      onPressed: () => {},
+                    CircleAvatar(
+                      child: IconButton(
+                        color: Colors.white,
+                        icon: Icon(Icons.person),
+                        onPressed: () => {},
+                      ),
                     ),
                     Text("Joao", style: TextStyle(color: Colors.white),),
                   ],
