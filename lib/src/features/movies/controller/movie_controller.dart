@@ -54,9 +54,9 @@ class MovieController {
     router.go("/movie-details");
   }
 
-  void rentalMovie(int movieId, int userId) async {
+  void rentalMovie(int movieId) async {
     await safeRun(() async {
-      final result = await movieRepository.rentalMovie(movieId, userId);
+      final result = await movieRepository.rentalMovie(movieId, loginController.userData!.id);
 
       if (result) {
         router.go("/movies");
@@ -64,9 +64,9 @@ class MovieController {
     });
   }
 
-  void watchMovie(int movieId, int userId) async {
+  void watchMovie(int movieId) async {
     await safeRun(() async {
-      final result = await movieRepository.watchMovie(movieId, userId);
+      final result = await movieRepository.watchMovie(movieId, loginController.userData!.id);
 
       if (result) {
         router.go("/movies");

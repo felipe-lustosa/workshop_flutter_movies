@@ -4,12 +4,12 @@ import 'package:http/http.dart' as http;
 import 'package:project_flca2/src/core/networks/server_address.dart';
 
 class LoginDatasource {
-  final client = http.Client();
+  final _client = http.Client();
 
   Future<(Uint8List?, String?)> login(Uint8List userBytes) async {
     try {
       var uri = Uri.parse(loginRoute);
-      var response = await client.post(
+      var response = await _client.post(
         uri,
         body: userBytes,
         headers: {'Content-Type': 'application/x-protobuf'},

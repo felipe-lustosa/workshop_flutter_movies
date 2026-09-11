@@ -3,9 +3,7 @@ import 'dart:typed_data';
 import 'package:flutter/material.dart';
 import 'package:project_flca2/src/core/di/injection.dart';
 import 'package:project_flca2/src/core/router/router.dart';
-import 'package:project_flca2/src/features/login/controller/login_controller.dart';
 import 'package:project_flca2/src/features/movies/controller/movie_controller.dart';
-import 'package:project_flca2/src/features/movies/ui/widgets/custom_snackbar.dart';
 
 class MovieDetailPage extends StatefulWidget {
   const MovieDetailPage({super.key}); 
@@ -16,7 +14,6 @@ class MovieDetailPage extends StatefulWidget {
 
 class _MovieDetailPageState extends State<MovieDetailPage> {
   final _movieController = getIt<MovieController>();
-  final _loginController = getIt<LoginController>();
 
   @override
   Widget build(BuildContext context) {
@@ -100,8 +97,8 @@ class _MovieDetailPageState extends State<MovieDetailPage> {
                         ElevatedButton(
                           onPressed: () => {
                             _movieController.isRental ? 
-                            _movieController.watchMovie(movie.id, _loginController.userData!.id) : 
-                            _movieController.rentalMovie(movie.id, _loginController.userData!.id),
+                            _movieController.watchMovie(movie.id) : 
+                            _movieController.rentalMovie(movie.id),
                             ScaffoldMessenger.of(context).showSnackBar(
                               SnackBar(
                                 content: Text('Filme alugado com sucesso', style: TextStyle(color: Colors.green)),
