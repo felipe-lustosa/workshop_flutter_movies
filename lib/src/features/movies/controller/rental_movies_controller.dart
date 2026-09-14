@@ -8,10 +8,10 @@ import 'package:signals/signals.dart';
 
 class RentalMoviesController {
   final _rentalMoviesList = signal<List<Movie>>([]);
-  final _error = signal<String>('');
+  final _error = signal<String?>(null);
 
   List<Movie> get rentalMoviesList => _rentalMoviesList.value;
-  String get error => _error.value;
+  String? get error => _error.value;
 
   final movieRepository = MovieRepository(MovieDatasource()); 
   final loginController = getIt<LoginController>();
@@ -35,8 +35,12 @@ class RentalMoviesController {
     });
   }
 
-  void rentalMovie(int movieId) async {
+  Future<void> rentalMovie(int movieId) async {
     await safeRun(() async {
+      if (rentalMoviesList.any((movie) => movie.id == movieId)) {
+        throw Exception("Esse filme já foi alugado!");
+      }
+
       final result = await movieRepository.rentalMovie(movieId, loginController.userData!.id);
 
       if (result) {
@@ -45,7 +49,7 @@ class RentalMoviesController {
     });
   }
 
-  void watchMovie(int movieId) async {
+  Future<void> watchMovie(int movieId) async {
     await safeRun(() async {
       final result = await movieRepository.watchMovie(movieId, loginController.userData!.id);
 
@@ -54,5 +58,9 @@ class RentalMoviesController {
         showRentalMovies();
       }
     });
+  }
+
+  void resetError()  {
+    _error.value = '';
   }
 }
