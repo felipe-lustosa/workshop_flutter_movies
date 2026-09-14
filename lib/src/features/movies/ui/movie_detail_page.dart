@@ -103,8 +103,8 @@ class _MovieDetailPageState extends State<MovieDetailPage> {
                             _rentalMovieController.rentalMovie(movie.id),
                             ScaffoldMessenger.of(context).showSnackBar(
                               SnackBar(
-                                content: Text('Filme alugado com sucesso', style: TextStyle(color: Colors.green)),
-                                backgroundColor: Colors.transparent, // Adjust as needed
+                                content: Text('Filme ${_availableMovieController.isRental ? "devolvido" : "alugado"} com sucesso', style: TextStyle(color: Colors.green)),
+                                backgroundColor: Colors.transparent,
                                 elevation: 0,
                                 duration: const Duration(milliseconds: 2000),
                               ),
