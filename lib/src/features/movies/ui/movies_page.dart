@@ -1,15 +1,22 @@
 import 'package:flutter/material.dart';
 import 'package:project_flca2/src/core/di/injection.dart';
 import 'package:project_flca2/src/features/login/controller/login_controller.dart';
+import 'package:project_flca2/src/features/movies/controller/available_movies_controller.dart';
+import 'package:project_flca2/src/features/movies/controller/rental_movies_controller.dart';
 import 'package:project_flca2/src/features/movies/ui/widgets/tab_bar_content/movies_content.dart';
 import 'package:project_flca2/src/features/movies/ui/widgets/tab_bar_content/rentals_content.dart';
 
 class MoviesPage extends StatelessWidget {
   MoviesPage({super.key});
   final _loginController = getIt<LoginController>();
+  final _movieController = getIt<AvailableMoviesController>();
+  final _rentalMovieController = getIt<RentalMoviesController>();
 
   @override
   Widget build(BuildContext context) {
+    _movieController.showMovies();
+    _rentalMovieController.showRentalMovies();
+    
     return DefaultTabController(
       initialIndex: 0,
       length: 2,

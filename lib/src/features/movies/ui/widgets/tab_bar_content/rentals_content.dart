@@ -18,7 +18,6 @@ class _RentalsContentState extends State<RentalsContent> {
 
   @override
   Widget build(BuildContext context) {
-    _rentalMovieController.showRentalMovies();
     return Expanded(
       child: SignalBuilder(
         builder: (context) => GridBuilder(

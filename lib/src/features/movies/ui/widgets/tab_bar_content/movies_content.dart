@@ -16,7 +16,6 @@ class _MoviesContentState extends State<MoviesContent> {
 
   @override
   Widget build(BuildContext context) {
-    _movieController.showMovies();
     return Expanded(
       child: SignalBuilder(
         builder: (context) => GridBuilder(
