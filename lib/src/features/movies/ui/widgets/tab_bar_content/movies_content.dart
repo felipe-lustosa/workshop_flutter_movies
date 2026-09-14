@@ -1,6 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:project_flca2/src/core/di/injection.dart';
-import 'package:project_flca2/src/features/movies/controller/movie_controller.dart';
+import 'package:project_flca2/src/features/movies/controller/available_movies_controller.dart';
 import 'package:project_flca2/src/features/movies/ui/widgets/grid_view.dart';
 import 'package:signals/signals_hooks.dart';
 
@@ -12,7 +12,7 @@ class MoviesContent extends StatefulWidget {
 }
 
 class _MoviesContentState extends State<MoviesContent> {
-  final _movieController = getIt<MovieController>();
+  final _movieController = getIt<AvailableMoviesController>();
 
   @override
   Widget build(BuildContext context) {

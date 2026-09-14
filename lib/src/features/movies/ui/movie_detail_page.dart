@@ -3,7 +3,8 @@ import 'dart:typed_data';
 import 'package:flutter/material.dart';
 import 'package:project_flca2/src/core/di/injection.dart';
 import 'package:project_flca2/src/core/router/router.dart';
-import 'package:project_flca2/src/features/movies/controller/movie_controller.dart';
+import 'package:project_flca2/src/features/movies/controller/available_movies_controller.dart';
+import 'package:project_flca2/src/features/movies/controller/rental_movies_controller.dart';
 
 class MovieDetailPage extends StatefulWidget {
   const MovieDetailPage({super.key}); 
@@ -13,11 +14,12 @@ class MovieDetailPage extends StatefulWidget {
 }
 
 class _MovieDetailPageState extends State<MovieDetailPage> {
-  final _movieController = getIt<MovieController>();
+  final _availableMovieController = getIt<AvailableMoviesController>();
+  final _rentalMovieController = getIt<RentalMoviesController>();
 
   @override
   Widget build(BuildContext context) {
-    final movie = _movieController.selectedMovie;
+    final movie = _availableMovieController.selectedMovie;
 
     if (movie == null) {
       router.go("/movies");
@@ -96,9 +98,9 @@ class _MovieDetailPageState extends State<MovieDetailPage> {
                         const SizedBox(width: 12),
                         ElevatedButton(
                           onPressed: () => {
-                            _movieController.isRental ? 
-                            _movieController.watchMovie(movie.id) : 
-                            _movieController.rentalMovie(movie.id),
+                            _availableMovieController.isRental ? 
+                            _rentalMovieController.watchMovie(movie.id) : 
+                            _availableMovieController.rentalMovie(movie.id),
                             ScaffoldMessenger.of(context).showSnackBar(
                               SnackBar(
                                 content: Text('Filme alugado com sucesso', style: TextStyle(color: Colors.green)),
@@ -108,7 +110,7 @@ class _MovieDetailPageState extends State<MovieDetailPage> {
                               ),
                             ),
                           },
-                          child: _movieController.isRental ? Text('Watch') : Text('Rental'),
+                          child: _availableMovieController.isRental ? Text('Watch') : Text('Rental'),
                         ),
                       ],
                     ),
