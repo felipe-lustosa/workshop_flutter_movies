@@ -40,14 +40,4 @@ class AvailableMoviesController {
     _isRental.value = isRental;
     router.go("/movie-details");
   }
-
-  void rentalMovie(int movieId) async {
-    await safeRun(() async {
-      final result = await movieRepository.rentalMovie(movieId, loginController.userData!.id);
-
-      if (result) {
-        router.go("/movies");
-      }
-    });
-  }
 }

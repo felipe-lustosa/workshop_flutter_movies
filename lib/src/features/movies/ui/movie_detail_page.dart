@@ -100,7 +100,7 @@ class _MovieDetailPageState extends State<MovieDetailPage> {
                           onPressed: () => {
                             _availableMovieController.isRental ? 
                             _rentalMovieController.watchMovie(movie.id) : 
-                            _availableMovieController.rentalMovie(movie.id),
+                            _rentalMovieController.rentalMovie(movie.id),
                             ScaffoldMessenger.of(context).showSnackBar(
                               SnackBar(
                                 content: Text('Filme alugado com sucesso', style: TextStyle(color: Colors.green)),
